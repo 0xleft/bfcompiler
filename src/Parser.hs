@@ -33,13 +33,13 @@ parseChildren tokens parent loopCount =
   let 
     zippedTokens = zip [0..] tokens
   in mapMaybe (\(idx, token) -> case tokenType token of
-    CONDJUMPFORWARD -> 
-      let loopNode = ASTNode { nodeType = LOOP, nodeChildren = [], nodeValue = (tokenValue token) }
-      in Just (parseTokens (drop (idx + 1) tokens) loopNode (loopCount + 1) False)
+    CONDJUMPFORWARD -> Just (parseTokens (drop (idx + 1) tokens) (ASTNode { nodeType = LOOP, nodeChildren = [], nodeValue = (tokenValue token) }) (loopCount + 1) False)
     CONDJUMPBACKWARD -> case loopCount of
-      -- 0 -> error "Invalid usage of ]"
+      -- 0 -> error ("Invalid usage of ] " ++ show loopCount ++ show parent)
       1 -> Just (parseTokens (take idx tokens) parent (loopCount - 1) True)
       _ -> Nothing
 
     -- everyting else
-    _ -> Just (ASTNode { nodeType = OPERATION, nodeChildren = [], nodeValue = (tokenValue token) })) zippedTokens
+    _ -> case loopCount of
+      0 -> Just (ASTNode { nodeType = OPERATION, nodeChildren = [], nodeValue = (tokenValue token) })
+      _ -> Nothing) zippedTokens
