@@ -25,7 +25,10 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Compiler
+      Lexer
+      Parser
+      Utils
   other-modules:
       Paths_bfcompiler
   autogen-modules:
