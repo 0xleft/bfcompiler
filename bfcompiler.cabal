@@ -38,6 +38,8 @@ library
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
+    , hspec
+    , hspec-discover
   default-language: Haskell2010
 
 executable bfcompiler-exe
@@ -52,6 +54,8 @@ executable bfcompiler-exe
   build-depends:
       base >=4.7 && <5
     , bfcompiler
+    , hspec
+    , hspec-discover
   default-language: Haskell2010
 
 test-suite bfcompiler-test
@@ -67,4 +71,6 @@ test-suite bfcompiler-test
   build-depends:
       base >=4.7 && <5
     , bfcompiler
+    , hspec
+    , hspec-discover
   default-language: Haskell2010

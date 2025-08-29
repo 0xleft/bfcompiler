@@ -1,5 +1,7 @@
 module Parser (
-  parseRoot
+  parseRoot,
+  ASTNode(..),
+  ASTNodeType(..)
 ) where
 import Lexer (Token(..), TokenType(..))
 

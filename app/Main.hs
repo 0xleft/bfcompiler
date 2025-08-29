@@ -1,13 +1,12 @@
 module Main (
   main
 ) where
-import Utils (getFileContents)
 import Lexer (lexContents)
 import Parser (parseRoot)
 
 main :: IO ()
 main = do
-  testContent <- getFileContents "test/test.bf"
+  testContent <- readFile "test/hello.bf"
   let lexedContents = lexContents testContent
       astRoot = parseRoot lexedContents
   
