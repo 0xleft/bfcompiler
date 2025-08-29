@@ -35,6 +35,7 @@ parseChildren tokens =
       in ASTNode { nodeType = LOOP, nodeChildren = parsedChildren, nodeValue = tokenValue token }
     _ -> (ASTNode { nodeType = OPERATION, nodeChildren = [], nodeValue = tokenValue token })) tokens
 
+-- parsing nested loops
 parseNested :: [Token] -> ([Token], [Token]) -- body children, remaining 
 parseNested [] = ([], [])
 parseNested (token:tokens) = 
