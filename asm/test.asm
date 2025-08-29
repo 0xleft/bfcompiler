@@ -13,25 +13,32 @@ _start:
 
   lea edi, [bfBuffer] ; now edi contains pointer to bfBuffer
 
-  ; body
-  mov byte [edi+0], '1'
-  mov byte [edi+1], '2'
-  mov byte [edi+2], '3'
-  mov byte [edi+3], '4'
-  mov byte [edi+4], '5'
-  mov byte [edi+5], 10    ; newline
+  ; +++[-.]
+  mov byte [edi], 48
 
-  call readdata
+  ; ----[---->+<]>++.
+
+  call incdata
+  call incdata
+  call incdata
+
+.looprandomnamestart
+  cmp byte [edi], 0
+  jz .looprandomnameend
+
+  ; loop body
+  call decdata
   call outdata
+
+  cmp byte [edi], 0
+  jnz .looprandomnamestart
+  
+.looprandomnameend
+
   call incpointer
+  call incdata
+  call incdata
   call outdata
-  call incpointer
-  call outdata
-  call incpointer
-  call outdata
-  call incpointer
-  call outdata
-  call incpointer
 
   call quit
 

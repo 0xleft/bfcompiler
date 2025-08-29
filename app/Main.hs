@@ -4,7 +4,7 @@ module Main (
 import Lexer (lexContents)
 import Parser (parseRoot)
 import Compiler (compile)
-import System.Info
+import System.Info (arch)
 
 main :: IO ()
 main = do
@@ -16,5 +16,5 @@ main = do
   print System.Info.arch
 
   print astRoot
-  print compiled
+  putStrLn compiled
   
