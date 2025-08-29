@@ -9,6 +9,7 @@
 # to be used for project dependencies. For example:
 #
 # snapshot: lts-23.0
+resolver: lts-21.25  # GHC 9.4.8
 # snapshot: nightly-2024-12-13
 # snapshot: ghc-9.8.4
 #
@@ -17,8 +18,8 @@
 #
 # snapshot: ./custom-snapshot.yaml
 # snapshot: https://example.com/snapshots/2024-01-01.yaml
-snapshot:
-  url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/24/6.yaml
+# snapshot:
+#   url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/24/6.yaml
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -35,11 +36,13 @@ packages:
 # These entries can reference officially published versions as well as
 # forks / in-progress versions pinned to a git hash. For example:
 #
-# extra-deps:
+extra-deps:
 # - acme-missiles-0.3
 # - git: https://github.com/commercialhaskell/stack.git
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
-#
+  - haskell-dap-0.0.16.0
+  - ghci-dap-0.0.24.0
+  - hie-bios-0.17.0@sha256:48a48c242efb68d4bc6f163e64c6e6f95f0532d8f4a4d3f2c28e40928200d1ab
 # extra-deps: []
 
 # Override default flag values for project packages and extra-deps

@@ -16,30 +16,39 @@ parseRoot :: [Token] -> ASTNode
 parseRoot tokens =
   let root = ASTNode { nodeType = ROOT, nodeChildren = [], nodeValue = '!' } -- root !
       validTokens = filter (\token -> tokenType token /= INVALID) tokens
-  in parseTokens validTokens root 0 True
+  in parseTokens validTokens root
 
-parseTokens :: [Token] -> ASTNode -> Int -> Bool -> ASTNode
-parseTokens tokens parent loopCount shouldAppend
-  | shouldAppend == True =
-    let newChildren = parseChildren tokens parent loopCount
-    in parent { nodeChildren = nodeChildren parent ++ newChildren }
-  | shouldAppend == False = 
-    let _ = parseChildren tokens parent loopCount
-    in parent
-  | otherwise = parent
+parseTokens :: [Token] -> ASTNode -> ASTNode
+parseTokens tokens parent =
+  let (nestedTokens, _) = parseNested tokens
+      astChildren = parseChildren nestedTokens
+  in parent { nodeChildren = nodeChildren parent ++ astChildren }
 
-parseChildren :: [Token] -> ASTNode -> Int -> [ASTNode]
-parseChildren tokens parent loopCount =
-  let 
-    zippedTokens = zip [0..] tokens
-  in mapMaybe (\(idx, token) -> case tokenType token of
-    CONDJUMPFORWARD -> Just (parseTokens (drop (idx + 1) tokens) (ASTNode { nodeType = LOOP, nodeChildren = [], nodeValue = (tokenValue token) }) (loopCount + 1) False)
-    CONDJUMPBACKWARD -> case loopCount of
-      -- 0 -> error ("Invalid usage of ] " ++ show loopCount ++ show parent)
-      1 -> Just (parseTokens (take idx tokens) parent (loopCount - 1) True)
-      _ -> Nothing
+-- asumes that nested tokens are already made
+parseChildren :: [Token] -> [ASTNode]
+parseChildren tokens =
+  let
+  in map (\token -> case tokenType token of
+    NESTED ->
+      let parsedChildren = parseChildren (tokenChildren token)
+      in ASTNode { nodeType = LOOP, nodeChildren = parsedChildren, nodeValue = tokenValue token }
+    _ -> (ASTNode { nodeType = OPERATION, nodeChildren = [], nodeValue = tokenValue token })) tokens
 
-    -- everyting else
-    _ -> case loopCount of
-      0 -> Just (ASTNode { nodeType = OPERATION, nodeChildren = [], nodeValue = (tokenValue token) })
-      _ -> Nothing) zippedTokens
+parseNested :: [Token] -> ([Token], [Token]) -- body children, remaining 
+parseNested [] = ([], [])
+parseNested (token:tokens) = 
+  case tokenType token of
+    CONDJUMPFORWARD -> 
+      let (bodyChildren, rest) = parseNested tokens 
+      in case rest of
+        (restToken:restTokens) | tokenType restToken == CONDJUMPBACKWARD ->
+          let loopToken = Token { tokenType = NESTED, tokenValue = '!', tokenChildren = bodyChildren }
+              (other, remaining) = parseNested restTokens
+          in (loopToken: other, remaining)
+        _ -> error "Unmatched [ bracket"
+
+    CONDJUMPBACKWARD -> 
+      ([], token:tokens) -- this doesnt consume it?
+    _ -> 
+      let (other, rest) = parseNested tokens
+      in (token : other, rest)

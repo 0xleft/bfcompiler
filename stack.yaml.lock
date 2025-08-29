@@ -3,11 +3,31 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/topics/lock_files
 
-packages: []
+packages:
+- completed:
+    hackage: haskell-dap-0.0.16.0@sha256:5ee4fba7ce1b8220f486a5251a941e6cd739ab2330e8f25efc5af553a4e1c61d,944
+    pantry-tree:
+      sha256: a757fbe6b8d1ca75a46cc9546d5bfaa903531f312e4266b7b24c62427a792c21
+      size: 315
+  original:
+    hackage: haskell-dap-0.0.16.0
+- completed:
+    hackage: ghci-dap-0.0.24.0@sha256:31a772f432ecc5c82bc98ebd4d04f49b0fa3f8ec3731ba55b85d9d4ab5c4230f,3969
+    pantry-tree:
+      sha256: 65c821c2fba316005ae45e59361e85f3189ba2bea39bbe0c115ebd0c36eb6a70
+      size: 3878
+  original:
+    hackage: ghci-dap-0.0.24.0
+- completed:
+    hackage: hie-bios-0.17.0@sha256:48a48c242efb68d4bc6f163e64c6e6f95f0532d8f4a4d3f2c28e40928200d1ab,13999
+    pantry-tree:
+      sha256: 2053afbf8f362f4d90a5f1baf30361c2da046bbc199a1e7eee5931f405ea00c2
+      size: 14684
+  original:
+    hackage: hie-bios-0.17.0@sha256:48a48c242efb68d4bc6f163e64c6e6f95f0532d8f4a4d3f2c28e40928200d1ab
 snapshots:
 - completed:
-    sha256: 473840099b95facf73ec72dcafe53a2487bfadeceb03a981a19e16469503a342
-    size: 726266
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/24/6.yaml
-  original:
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/24/6.yaml
+    sha256: a81fb3877c4f9031e1325eb3935122e608d80715dc16b586eb11ddbff8671ecd
+    size: 640086
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/21/25.yaml
+  original: lts-21.25
