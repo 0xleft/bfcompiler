@@ -2,7 +2,6 @@ module Parser (
   parseRoot
 ) where
 import Lexer (Token(..), TokenType(..))
-import Data.Maybe (mapMaybe)
 
 data ASTNode = ASTNode {
   nodeType :: ASTNodeType,
@@ -14,7 +13,7 @@ data ASTNodeType = ROOT | OPERATION | LOOP deriving (Show, Eq)
 
 parseRoot :: [Token] -> ASTNode
 parseRoot tokens =
-  let root = ASTNode { nodeType = ROOT, nodeChildren = [], nodeValue = '!' } -- root !
+  let root = ASTNode { nodeType = ROOT, nodeChildren = [], nodeValue = ' ' } -- root
       validTokens = filter (\token -> tokenType token /= INVALID) tokens
   in parseTokens validTokens root
 
@@ -39,10 +38,10 @@ parseNested [] = ([], [])
 parseNested (token:tokens) = 
   case tokenType token of
     CONDJUMPFORWARD -> 
-      let (bodyChildren, rest) = parseNested tokens 
-      in case rest of
+      let (bodyChildren, rest) = parseNested tokens
+      in case rest of 
         (restToken:restTokens) | tokenType restToken == CONDJUMPBACKWARD ->
-          let loopToken = Token { tokenType = NESTED, tokenValue = '!', tokenChildren = bodyChildren }
+          let loopToken = Token { tokenType = NESTED, tokenValue = ' ', tokenChildren = bodyChildren }
               (other, remaining) = parseNested restTokens
           in (loopToken: other, remaining)
         _ -> error "Unmatched [ bracket"
