@@ -13,7 +13,9 @@ _start:
 
   lea edi, [bfBuffer] ; now edi contains pointer to bfBuffer
 
-  ; >++++++++[<+++++++++>-]<.>++++[<+++++++>-]<+.+++++++..+++.>>++++++[<+++++++>-]<+
+  ; >++++++++[<+++++++++>-]<. >++++[<+++++++>-]<+.+++++++..+++.>>++++++[<+++++++>-]<+
+
+; BEGIN BODY
 
   call incpointer
 
@@ -54,8 +56,54 @@ _start:
   call decpointer
   call outdata
 
-  mov eax, [edi]
-  call iprint
+  call incpointer
+  call incdata
+  call incdata
+  call incdata
+  call incdata
+
+.looprandomnamestart2:
+  cmp byte [edi], 0
+  jz .looprandomnameend2
+
+  call decpointer
+  call incdata
+  call incdata
+  call incdata
+  call incdata
+  call incdata
+  call incdata
+  call incdata
+  call incpointer
+  call decdata
+
+  cmp byte [edi], 0
+  jnz .looprandomnamestart2
+  
+.looprandomnameend2:
+
+  call decpointer
+  call incdata
+  call outdata
+
+  call incdata
+  call incdata
+  call incdata
+  call incdata
+  call incdata
+  call incdata
+  call incdata
+
+  call outdata
+  call outdata
+
+  call incdata
+  call incdata
+  call incdata
+
+  call outdata
+
+; END BODY
 
   call quit
 
@@ -106,8 +154,8 @@ quit:
   mov ebx, 0 
   mov eax, 1 ; system call for sys_exit
   int 0x80 ; call kernel
-  ret
 
+  ret
 
 
 
