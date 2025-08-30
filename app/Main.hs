@@ -8,6 +8,8 @@ import Arguments (parseArguments, Arguments(..))
 import Data.List
 import Options.Applicative
 import Control.Monad
+import System.IO
+import System.FilePath (takeFileName)
 
 main :: IO ()
 main = start =<< execParser opts
@@ -30,6 +32,8 @@ start args = do
 
       Control.Monad.when (outputRaw args) $ do putStrLn compiled
 
-      
+      handle <- openFile (takeFileName (take (length (filename args) - 3) (filename args) ++ ".asm")) WriteMode
+      hPutStrLn handle compiled
+      hClose handle
 
     ) else error "The file should end in .bf")
