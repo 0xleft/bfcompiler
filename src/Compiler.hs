@@ -5,6 +5,7 @@ module Compiler (
 import Parser (ASTNode)
 import qualified System.Info
 import Text.Regex (mkRegex, subRegex)
+import Compilers.I386 (compileFull)
 
 compile :: ASTNode -> Int -> String
 compile root bufferLength =
@@ -15,10 +16,7 @@ compile root bufferLength =
   in subRegex (mkRegex "BUFFER_LENGTH") compiled (show bufferLength)
 
 compilei386 :: ASTNode -> String
-compilei386 root = 
-  "BUFFER_LENGTH TEST\n\
-\test\n\
-\test"
+compilei386 root = compileFull root
 
 compilex86_64 :: ASTNode -> String
 compilex86_64 root =

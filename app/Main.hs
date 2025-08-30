@@ -17,4 +17,3 @@ main = do
 
   print astRoot
   putStrLn compiled
-  
