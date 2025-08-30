@@ -1,4 +1,3 @@
-
 module Compiler (
   compile
 ) where
@@ -8,13 +7,17 @@ import Compilers.I386
 import Compilers.X86_64
 import Parser (ASTNode(..), ASTNodeType(..))
 
-compile :: ASTNode -> Int -> String
-compile root bufferLength =
-  let compiled = case System.Info.arch of
+-- eww ugly
+compile :: ASTNode -> Int -> String -> String
+compile root bufferLength compiler =
+    case compiler of
+      "i386" -> subRegex (mkRegex "BUFFER_LENGTH") (compilei386 root) (show bufferLength) 
+      "x86_64" -> subRegex (mkRegex "BUFFER_LENGTH") (compilex86_64 root) (show bufferLength) 
+      _ -> let compiled = case System.Info.arch of
                   "i386" -> compilei386 root
                   "x86_64" -> compilex86_64 root
                   _ -> error "Unsupported architecture if you would like to add support create a pr @ https://github.com/0xleft/bfcompiler"
-  in subRegex (mkRegex "BUFFER_LENGTH") compiled (show bufferLength)
+           in subRegex (mkRegex "BUFFER_LENGTH") compiled (show bufferLength)
 
 compilei386 :: ASTNode -> String
 compilei386 root = 

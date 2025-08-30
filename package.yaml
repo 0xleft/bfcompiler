@@ -24,6 +24,7 @@ dependencies:
 - hspec
 - hspec-discover
 - regex-compat
+- optparse-applicative
 
 ghc-options:
 - -Wall
