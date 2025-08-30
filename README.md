@@ -40,3 +40,23 @@ ld hello.o -o hello -m elf_i386 # generates hello
 
 Many examples can be found on [brainfuck.org](https://www.brainfuck.org/).
 Here are a few demos
+
+### Conways game of life 
+
+https://github.com/user-attachments/assets/c8f7374f-df68-4e44-ba7c-9055a01e1dac
+
+### Sierpinski triangle
+
+https://github.com/user-attachments/assets/8f6d91d7-7024-4de7-b716-5aeaa9de0ed4
+
+### Rot 13 cypther
+
+https://github.com/user-attachments/assets/b75e12a9-9d6a-4891-aec2-f7fffd32756a
+
+### Tic-Tac-Toe
+
+https://github.com/user-attachments/assets/9762d82c-7f19-4019-b3ce-b661830ac681
+
+### Calculating the golden ratio
+
+https://github.com/user-attachments/assets/973113ce-e79b-402e-a2a8-b0fe5f31bb63
