@@ -38,14 +38,14 @@ ld hello.o -o hello -m elf_i386 # generates hello
 
 ## Examples
 
-Many examples can be found on [brainfuck.org](https://www.brainfuck.org/).
+Many examples can be found on [brainfuck.org](https://www.brainfuck.org/). Work of Daniel :) https://www.brainfuck.org/daniel.png
 Here are a few demos
 
 ### Conways game of life 
 
 https://github.com/user-attachments/assets/c8f7374f-df68-4e44-ba7c-9055a01e1dac
 
-### Sierpinski triangle
+### Sierpinski triangle 
 
 https://github.com/user-attachments/assets/8f6d91d7-7024-4de7-b716-5aeaa9de0ed4
 
