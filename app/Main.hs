@@ -4,7 +4,6 @@ module Main (
 import Lexer (lexContents)
 import Parser (parseRoot)
 import Compiler (compile)
-import System.Info (arch)
 
 main :: IO ()
 main = do
