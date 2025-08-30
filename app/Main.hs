@@ -5,8 +5,9 @@ import Lexer (lexContents)
 import Parser (parseRoot)
 import Compiler (compile)
 import Arguments (parseArguments, Arguments(..))
-
+import Data.List
 import Options.Applicative
+import Control.Monad
 
 main :: IO ()
 main = start =<< execParser opts
@@ -20,9 +21,15 @@ start :: Arguments -> IO ()
 start args = do
 -- do stuffs
 
-  testContent <- readFile (filename args)
-  let lexedContents = lexContents testContent
-      astRoot = parseRoot lexedContents
-      compiled = compile astRoot 1000 (compiler args)
+  (if ".bf" `isSuffixOf` filename args then (
+    do
+      fileContents <- readFile (filename args)
+      let lexedContents = lexContents fileContents
+          astRoot = parseRoot lexedContents
+          compiled = compile astRoot (bufferLength args) (compiler args)
 
-  putStrLn compiled
+      Control.Monad.when (outputRaw args) $ do putStrLn compiled
+
+      
+
+    ) else error "The file should end in .bf")

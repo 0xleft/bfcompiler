@@ -7,21 +7,34 @@ import Options.Applicative
 
 data Arguments = Arguments {
   filename :: String,
-  compiler :: String
+  bufferLength :: Int,
+  compiler :: String,
+  outputRaw :: Bool
 } deriving (Eq, Show, Read)
 
 parseArguments :: Parser Arguments
 parseArguments = Arguments
-    <$> parseFilename
-    <*> parseCompiler
+  <$> parseFilename
+  <*> parseBufferLength
+  <*> parseCompiler
+  <*> parseOutputRaw
 
 parseFilename :: Parser String
-parseFilename = argument str (metavar "FILE")
+parseFilename = argument str (metavar "File")
+
+parseBufferLength :: Parser Int
+parseBufferLength = argument auto (metavar "BufferLength")
 
 parseCompiler :: Parser String
 parseCompiler = strOption (
   long "compiler"
   <> short 'c'
-  <> metavar "COMPILER"
+  <> metavar "Compiler"
   <> value ""
   <> help "The compiler you want to force use")
+
+parseOutputRaw :: Parser Bool
+parseOutputRaw = switch (
+  long "outputraw"
+  <> short 'o'
+  <> help "Output raw assembly in to the terminal" )
