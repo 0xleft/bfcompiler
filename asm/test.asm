@@ -28,7 +28,7 @@ _start:
   call incdata
   call incdata
 
-.looprandomnamestart1:
+.looprandomname_start1:
   cmp byte [rdi], 0
   jz .looprandomnameend1
 
