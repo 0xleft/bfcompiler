@@ -49,9 +49,9 @@ linuxTemplate = "SECTION .bss\n\
 \  pop edi\n\
 \  ret\n\
 \quit:\n\
-\  mov ebx, 0 \n\
-\  mov eax, 1 ; system call for sys_exit\n\
-\  int 0x80 ; call kernel\n\
+\  mov ebx, 0\n\
+\  mov eax, 1\n\
+\  int 0x80\n\
 \  ret"
 
 loopTemplate :: String
