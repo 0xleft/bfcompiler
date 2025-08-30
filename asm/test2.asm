@@ -3,17 +3,17 @@ bfBuffer resb 1000
 SECTION .text
 global _start
 _start:
-  xor eax, eax
-  xor ebx, ebx
-  xor edi, edi
-  xor esi, esi
-  lea edi, [bfBuffer]
+  xor rax, rax
+  xor rbx, rbx
+  xor rdi, rdi
+  xor rsi, rsi
+  lea rdi, [bfBuffer]
   call decdata
   call decdata
   call decdata
   call decdata
 .loopstart04:
-  cmp byte [edi], 0
+  cmp byte [rdi], 0
   jz .loopend04
   call decdata
   call decdata
@@ -23,7 +23,7 @@ _start:
   call incdata
   call decpointer
 
-  cmp byte [edi], 0
+  cmp byte [rdi], 0
   jnz .loopstart04
 .loopend04:
   call incpointer
@@ -33,37 +33,37 @@ _start:
 
   call quit
 incpointer:
-  inc edi
+  inc rdi
   ret
 decpointer:
-  dec edi
+  dec rdi
   ret
 incdata:
-  inc byte [edi]
+  inc byte [rdi]
   ret
 decdata:
-  dec byte [edi]
+  dec byte [rdi]
   ret
 outdata:
-  push edi
-  mov ecx, edi
-  mov eax, 4
-  mov ebx, 1
-  mov edx, 1
+  push rdi
+  mov rcx, rdi
+  mov rax, 4
+  mov rbx, 1
+  mov rdx, 1
   int 0x80
-  pop edi
+  pop rdi
   ret
 readdata:
-  push edi
-  mov ecx, edi
-  mov eax, 3
-  mov ebx, 0
-  mov edx, 1
+  push rdi
+  mov rcx, rdi
+  mov rax, 3
+  mov rbx, 0
+  mov rdx, 1
   int 0x80
-  pop edi
+  pop rdi
   ret
 quit:
-  mov ebx, 0
-  mov eax, 1 ; system call for sys_exit
+  mov rbx, 0
+  mov rax, 1 ; system call for sys_exit
   int 0x80 ; call kernel
   ret

@@ -27,6 +27,7 @@ library
   exposed-modules:
       Compiler
       Compilers.I386
+      Compilers.X86_64
       Lexer
       Parser
       Utils

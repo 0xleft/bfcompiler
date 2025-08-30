@@ -68,7 +68,7 @@ compileTree root depth =
   let
     zippedChildren = zip [0..] (nodeChildren root)
     result = map (\(idx, node) -> case nodeType node of
-      LOOP -> 
+      LOOP ->
         let compiledChildren = compileTree node (depth + 1)
             loopWithBody = subRegex (mkRegex "LOOPBODY") loopTemplate compiledChildren
             loopStartReplaced = subRegex (mkRegex "LOOPSTART") loopWithBody ("loopstart" ++ show depth ++ show idx)
@@ -82,9 +82,9 @@ compileTree root depth =
         ',' -> "  call readdata\n"
         _ -> error "Somehow unhandled node operation -> " ++ show (nodeValue node)
       _ -> "") zippedChildren
-  in (concat result)
+  in concat result
 
 compileFull :: ASTNode -> String
-compileFull root = 
+compileFull root =
   let compiledBody = compileTree root 0
   in subRegex (mkRegex "BODY") linuxTemplate compiledBody
